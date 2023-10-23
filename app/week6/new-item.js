@@ -17,6 +17,13 @@ export default function NewItem() {
       category,
     };
 
+    onAddItem(item); // this is the function that was passed in as a prop
+
+    setName(""); 
+    setQuantity(1); 
+    setCategory("produce"); 
+  
+
     console.log(item);
     alert(`Name: ${name}, Quantity: ${quantity}, Category: ${category}`);
     setName("");
