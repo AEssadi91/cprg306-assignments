@@ -1,16 +1,14 @@
 "use client";
 import React, { useState } from "react";
 import Item from "./item";
-import items from "./items.json";
+import items from "../week5/items.json";
 
 
-export default function ItemList() {
+export default function ItemList({items}) {
   const [sortBy, setSortBy] = useState("name");
   const [groupedCategory, setGroupedCategory] = useState(false);
 
-  items.sort((a, b) =>  sortBy === "name"  ? a.name.localeCompare(b.name)
-      : sortBy === "category" ? a.category.localeCompare(b.category) : 0
-  );
+  
 
   const groupedItems = items.reduce((acc, item) => {
     acc[item.category] = acc[item.category] || [];
