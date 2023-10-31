@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import NewItem from "./new-item";
+
 import ItemList from "./item-list";
 
 export default function NewItem({ onAddItem }) {
@@ -19,10 +19,7 @@ export default function NewItem({ onAddItem }) {
       category,
     };
 
-    do {
-      onAddItem;
-    } while (condition);
-    item; // this is the function that was passed in as a prop
+    onAddItem(item);
 
     setName("");
     setQuantity(1);
@@ -45,65 +42,65 @@ export default function NewItem({ onAddItem }) {
     setCategory(event.target.value);
   };
 
-    return (
-      <main className="flex justify-center w-full">
-        <form
-          onSubmit={handleSubmit}
-          className="p-3 m-4 bg-gray-800 text-black max-w-sm w-full"
-        >
-          <div className="mb-2">
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={name}
-              placeholder="Item name"
-              req
-              onChange={handleNameChange}
-              required
-              className="border-2 w-full border-gray-400 rounded-md  p-2 ml-1 "
-            />
-          </div>
-          <div className="flex justify-between">
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              min="1"
-              max="99"
-              value={quantity}
-              onChange={handleQuantityChange}
-              required
-              className="border-2 border-gray-400 rounded-md p-2 w-20 ml-1"
-            />
+  return (
+    <main className="flex justify-center w-full">
+      <form
+        onSubmit={handleSubmit}
+        className="p-3 m-4 bg-gray-800 text-black max-w-sm w-full"
+      >
+        <div className="mb-2">
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={name}
+            placeholder="Item name"
+            req
+            onChange={handleNameChange}
+            required
+            className="border-2 w-full border-gray-400 rounded-md  p-2 ml-1 "
+          />
+        </div>
+        <div className="flex justify-between">
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            min="1"
+            max="99"
+            value={quantity}
+            onChange={handleQuantityChange}
+            required
+            className="border-2 border-gray-400 rounded-md p-2 w-20 ml-1"
+          />
 
-            <select
-              id="category"
-              name="category"
-              value={category}
-              onChange={handleCategoryChange}
-              className="border-2 border-gray-400 rounded-md p-2 w-30 ml-1"
-            >
-              <option value="produce">Produce</option>
-              <option value="dairy">Dairy</option>
-              <option value="bakery">Bakery</option>
-              <option value="meat">Meat</option>
-              <option value="frozen-foods">Frozen Foods</option>
-              <option value="canned-goods">Canned Goods</option>
-              <option value="dry-goods">Dry Goods</option>
-              <option value="beverages">Beverages</option>
-              <option value="snacks">Snacks</option>
-              <option value="household">Household</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-          <button
-            type="Add"
-            className="w-full mt-4 py-2 px-4 bg-sky-900 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+          <select
+            id="category"
+            name="category"
+            value={category}
+            onChange={handleCategoryChange}
+            className="border-2 border-gray-400 rounded-md p-2 w-30 ml-1"
           >
-            + Add Item
-          </button>
-        </form>
-      </main>
-    );
-  }
+            <option value="produce">Produce</option>
+            <option value="dairy">Dairy</option>
+            <option value="bakery">Bakery</option>
+            <option value="meat">Meat</option>
+            <option value="frozen-foods">Frozen Foods</option>
+            <option value="canned-goods">Canned Goods</option>
+            <option value="dry-goods">Dry Goods</option>
+            <option value="beverages">Beverages</option>
+            <option value="snacks">Snacks</option>
+            <option value="household">Household</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <button
+          type="Add"
+          className="w-full mt-4 py-2 px-4 bg-sky-900 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75"
+        >
+          + Add Item
+        </button>
+      </form>
+    </main>
+  );
+}
