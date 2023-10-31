@@ -9,7 +9,7 @@ export default function Item({ item, onSelect }) {
         <li className="text-Gray-900"> {item.name} </li>
         <li>Buy {item.quantity} of {item.category}</li>
       </ul>
-      <div onClick={() => onSelect(item)}>
+      <div onClick={() => onSelect && onSelect(item)}>
         {item.name}
         
       </div>
