@@ -2,8 +2,9 @@
 import { useState } from "react";
 import NewItem from "./new-item";
 import Item from "./item";
+import ItemList from "./item-list";
 
-export default function NewItem({ onAddItem}) {
+export default function NewItem({ onAddItem }) {
   const [name, setName] = useState("");
 
   const [quantity, setQuantity] = useState(1);
@@ -20,11 +21,10 @@ export default function NewItem({ onAddItem}) {
     };
 
     onAddItem(item); // this is the function that was passed in as a prop
-    
-    setName(""); 
-    setQuantity(1); 
-    setCategory("produce"); 
-  
+
+    setName("");
+    setQuantity(1);
+    setCategory("produce");
 
     console.log(item);
     alert(`Name: ${name}, Quantity: ${quantity}, Category: ${category}`);
@@ -32,9 +32,10 @@ export default function NewItem({ onAddItem}) {
     setQuantity(1);
     setCategory("produce");
   };
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
+  // Remove unused function
+  // const handleNameChange = (event) => {
+  //   setName(event.target.value);
+  // };
   const handleQuantityChange = (event) => {
     setQuantity(parseInt(event.target.value));
   };
@@ -103,5 +104,4 @@ export default function NewItem({ onAddItem}) {
       </form>
     </main>
   );
-  
 }
