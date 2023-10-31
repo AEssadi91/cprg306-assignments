@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import NewItem from "./new-item";
-import Item from "./item";
 import ItemList from "./item-list";
 
 export default function NewItem({ onAddItem }) {
