@@ -1,29 +1,49 @@
 "use client";
+import { redirect } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import ItemList from "./item-list";
-import itemsData from "../week5/items.json";
 import MealIdeas from "./meal-ideas";
-import dynamic from 'next/dynamic';
+import { getItem, addItem } from "../_services/shopping-list-service";
+import { useUserAuth } from "../_utils/auth-context";
 
-const useUserAuth = dynamic(
-  () => import('./_utils/auth-context').then((mod) => mod.useUserAuth),
-  { ssr: false }
-);
+
 export default function Page() {
-  
-  const [items, setItems] = useState(itemsData);
+  const [ingredient, setIngredient] = useState(null);
   const [selectedItemName, setSelectedItemName] = useState("");
-  const router = useRouter();
-  const { user, gitHubSignIn, firebaseSignOut } = useUserAuth();
+  const { user } = useUserAuth();
+  const [items, setItems] = useState([]);
+  const loadItems = async () => {
+    const loadedItems = await getItem(user.uid);
+    setItems(loadedItems);
+  };
+  useEffect(() => {
+    loadItems();
+  }, [user]); // Changed the dependency to user
+
+  const handleItemAdd = async (item) => {
+    try {
+      let id = await addItem(user.uid, item);
+      setItems((prevItems) => [...prevItems, { id, ...item }]);
+    } catch (error) {
+      console.error("Error adding item:", error);
+    }
+  };
+
+  const handleItemClicked = (itemName) => {
+    const cleanItemName = itemName
+      .replace(/[^a-z\s]+$/i, "")
+      .trim()
+      .split(",")[0]
+      .replace(" ", "_");
+    setIngredient(cleanItemName);
+  };
+
   if (!user) {
-    redirect(router, "/week8/login");
-    
+    redirect("/week10", "replace");
   }
   const handleItemSelect = (item) => {
     if (!item?.name) {
       console.error("Invalid item provided:", item);
-      
     }
 
     setItems((prevItems) => [...prevItems, item]);
@@ -37,16 +57,16 @@ export default function Page() {
     setSelectedItemName(cleanedName);
   };
   if (user) {
-  return (
-    <main className="p-2 flex">
-      <div className="bg-cyan-950 w-1/2 pr-3">
-        <h2 className="text-3xl font-bold">Shopping List</h2>
-        <ItemList items={items} onItemSelect={handleItemSelect} />
-      </div>
-      <div className=" w-1/2 pr-3">
-        <MealIdeas ingredient={selectedItemName} />
-      </div>
-    </main>
-  );
+    return (
+      <main className="p-2 flex">
+        <div className="bg-cyan-950 w-1/2 pr-3">
+          <h2 className="text-3xl font-bold">Shopping List</h2>
+          <ItemList items={items} onItemSelect={handleItemSelect} />
+        </div>
+        <div className=" w-1/2 pr-3">
+          <MealIdeas ingredient={selectedItemName} />
+        </div>
+      </main>
+    );
   }
 }

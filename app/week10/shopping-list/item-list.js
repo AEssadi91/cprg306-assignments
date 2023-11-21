@@ -1,13 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import items from "../week5/items.json";
 import Item from "./item";
 
-export default function ItemList({items, onItemSelect}) {
+export default function ItemList({ items, onItemSelect }) {
   const [sortBy, setSortBy] = useState("name");
   const [groupedCategory, setGroupedCategory] = useState(false);
-
-  
 
   const groupedItems = items.reduce((acc, item) => {
     acc[item.category] = acc[item.category] || [];
@@ -20,10 +17,12 @@ export default function ItemList({items, onItemSelect}) {
     groupedItems[category].sort((a, b) => a.name.localeCompare(b.name));
   });
 
-  const sortedItems = [...items].sort((a, b) => 
-    sortBy === "name" ? a.name.localeCompare(b.name) :
-    sortBy === "category" ? a.category.localeCompare(b.category) : 
-    0
+  const sortedItems = [...items].sort((a, b) =>
+    sortBy === "name"
+      ? a.name.localeCompare(b.name)
+      : sortBy === "category"
+      ? a.category.localeCompare(b.category)
+      : 0
   );
 
   return (
@@ -62,16 +61,15 @@ export default function ItemList({items, onItemSelect}) {
                 <Item key={item.id} item={item} />
               ))}
 
-      <div>
-            {/* ... Sorting buttons ... */}
-            {items.map(item => (
-                <Item key={item.id} item={item} onSelect={onItemSelect} />
-            ))}
-      </div>
-              
+              <div>
+                {/* ... Sorting buttons ... */}
+                {items.map((item) => (
+                  <Item key={item.id} item={item} onSelect={onItemSelect} />
+                ))}
+              </div>
             </div>
-              ))
-              : sortedItems.map((item) => <Item key={item.id} item={item} />)}
-            </div>
+          ))
+        : sortedItems.map((item) => <Item key={item.id} item={item} />)}
+    </div>
   );
 }

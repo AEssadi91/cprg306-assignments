@@ -24,16 +24,15 @@ export default function Page() {
 
   return (
     <div className="flex flex-col justify-center items-center mt-10 p-10 gap-5 bg-violet-800 text-white">
-
-        {!user && <p>Sign in to see the link to the shopping list page</p>}
-        {!user && <button onClick={handleSignIn}>Sign In</button>}
-        {user && (
-          <p>
-            Welcome, {user.displayName} ({user.email})
-          </p>
-        )}
-        {user && <Link href="/week8/shopping-list">Shopping List</Link>}
-        {user && <button onClick={handleSignOut}>Sign Out</button>}
-      </div>
+      {!user && <p>Sign in to see the link to the shopping list page</p>}
+      {!user && <button onClick={handleSignIn}>Sign In</button>}
+      {user && (
+        <p>
+          Welcome, {user.displayName} ({user.email})
+        </p>
+      )}
+      {user && <Link href="/week10/shopping-list">Shopping List</Link>}
+      {user && <button onClick={handleSignOut}>Sign Out</button>}
+    </div>
   );
 }
